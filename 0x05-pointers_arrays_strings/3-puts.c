@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * _puts - function that prints a string, followed by a new line, to stdout.
+ * _puts - function that prints a string, followed by \n, to stdout
  *
  * @str: char pointer variable
  *
- * return: nothing
+ * Return: nothing
  */
 
 void _puts(char *str)
@@ -18,3 +18,4 @@ void _puts(char *str)
 	}
 	_putchar(10);
 }
+
