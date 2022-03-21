@@ -1,22 +1,21 @@
 #include "main.h"
-#include <string.h>
 
 /**
- * _strlen - function that returns the length of a string.
+ * _strlen -  function that returns the length of a string
  *
  * @s: char type pointer
  *
- * return: string length of a string
+ * Return: string length of a string
  */
 
 int _strlen(char *s)
 {
-int i = 0;
+	int i;
 
-while (s[i] != 0)
-{
-i++;
-}
-return (i);
+	for (i = 0; s[i] != '\0'; i++)
+	{
+
+	}
+	return (i);
 }
 
