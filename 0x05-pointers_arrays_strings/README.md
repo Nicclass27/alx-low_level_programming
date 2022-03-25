@@ -1,1 +1,1 @@
-my readme file
+Introduction to Pointers, arrays and strings
