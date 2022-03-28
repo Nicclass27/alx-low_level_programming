@@ -15,4 +15,3 @@ memset(s, b, n);
 
 return (s);
 }
-
