@@ -1,53 +1,29 @@
-#include "holberton.h"
-#include <stdlib.h>
+#include "main.h"
 
 /**
- * strtow - converts a string into its separate words
- *
- * @str: string to convert into words
- *
- * Return: 2d array pointer
+ * main - multiplies two positive numbers
+ * @argc: n arguments
+ * @argv: args
+ * Return: int
  */
-char **strtow(char *str)
+int main(int argc, char *argv[])
 {
-	char **ret, *ptr = str;
-	int wc = 0, i = 0;
-
-	if (str == 0 || *str == 0)
-		return (0);
-	while (*ptr)
+unsigned long mul;
+int i, j;
+	if (argc != 3)
+	{ printf("Error\n");
+	exit(98); }
+	for (i = 1; i < argc; i++)
 	{
-		if (!(*ptr == ' ') && (*(ptr + 1) == ' ' || *(ptr + 1) == 0))
-			wc++;
-		ptr++;
-	}
-	if (wc == 0)
-		return (NULL);
-	ret = malloc((wc + 1) * sizeof(char *));
-	if (ret == 0)
-		return (0);
-	while (*str)
-	{
-		if (*str != ' ')
+		for (j = 0; argv[i][j] != '\0'; j++)
 		{
-			for (ptr = str, wc = 0; *ptr != ' ' && *ptr != 0;)
-				wc++, ptr++;
-			ret[i] = malloc(wc + 1);
-			if (ret[i] == 0)
-			{
-				while (i >= 0)
-					free(ret[--i]);
-				free(ret);
-				return (0);
-			}
-			ptr = ret[i++];
-			while (*str != ' ' && *str != 0)
-				*ptr++ = *str++;
-			*ptr = 0;
+			if (argv[i][j] > 57 || argv[i][j] < 48)
+			{  printf("Error\n");
+			exit(98); }
 		}
-		else
-			str++;
+
 	}
-	ret[i] = 0;
-	return (ret);
+	mul = atol(argv[1]) *  atol(argv[2]);
+	printf("%lu\n", mul);
+return (0);
 }
