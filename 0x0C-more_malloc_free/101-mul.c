@@ -1,67 +1,53 @@
-#include "main.h"
+#include "holberton.h"
 #include <stdlib.h>
 
 /**
- * ch_free_grid - frees a 2 dimensional array.
- * @grid: multidimensional array of char.
- * @height: height of the array.
+ * strtow - converts a string into its separate words
  *
- * Return: no return
- */
-void ch_free_grid(char **grid, unsigned int height)
-{
-	if (grid != NULL && height != 0)
-	{
-		for (; height > 0; height--)
-			free(grid[height]);
-		free(grid[height]);
-		free(grid);
-	}
-}
-
-/**
- * strtow - splits a string into words.
- * @str: string.
+ * @str: string to convert into words
  *
- * Return: pointer of an array of integers
+ * Return: 2d array pointer
  */
 char **strtow(char *str)
 {
-	char **aout;
-	unsigned int c, height, i, j, a1;
+	char **ret, *ptr = str;
+	int wc = 0, i = 0;
 
-	if (str == NULL || *str == '\0')
-		return (NULL);
-	for (c = height = 0; str[c] != '\0'; c++)
-		if (str[c] != ' ' && (str[c + 1] == ' ' || str[c + 1] == '\0'))
-			height++;
-	aout = malloc((height + 1) * sizeof(char *));
-	if (aout == NULL || height == 0)
+	if (str == 0 || *str == 0)
+		return (0);
+	while (*ptr)
 	{
-		free(aout);
-		return (NULL);
+		if (!(*ptr == ' ') && (*(ptr + 1) == ' ' || *(ptr + 1) == 0))
+			wc++;
+		ptr++;
 	}
-	for (i = a1 = 0; i < height; i++)
+	if (wc == 0)
+		return (NULL);
+	ret = malloc((wc + 1) * sizeof(char *));
+	if (ret == 0)
+		return (0);
+	while (*str)
 	{
-		for (c = a1; str[c] != '\0'; c++)
+		if (*str != ' ')
 		{
-			if (str[c] == ' ')
-				a1++;
-			if (str[c] != ' ' && (str[c + 1] == ' ' || str[c + 1] == '\0'))
+			for (ptr = str, wc = 0; *ptr != ' ' && *ptr != 0;)
+				wc++, ptr++;
+			ret[i] = malloc(wc + 1);
+			if (ret[i] == 0)
 			{
-				aout[i] = malloc((c - a1 + 2) * sizeof(char));
-				if (aout[i] == NULL)
-				{
-					ch_free_grid(aout, i);
-					return (NULL);
-				}
-				break;
+				while (i >= 0)
+					free(ret[--i]);
+				free(ret);
+				return (0);
 			}
+			ptr = ret[i++];
+			while (*str != ' ' && *str != 0)
+				*ptr++ = *str++;
+			*ptr = 0;
 		}
-		for (j = 0; a1 <= c; a1++, j++)
-			aout[i][j] = str[a1];
-		aout[i][j] = '\0';
+		else
+			str++;
 	}
-	aout[i] = NULL;
-	return (aout);
+	ret[i] = 0;
+	return (ret);
 }
